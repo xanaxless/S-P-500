@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB634A03282A568F007A4ADF /* StockPrice .swift in Sources */ = {isa = PBXBuildFile; fileRef = CB634A02282A568F007A4ADF /* StockPrice .swift */; };
+		CB634A05282A5704007A4ADF /* StockPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB634A04282A5704007A4ADF /* StockPriceViewModel.swift */; };
 		CB67745B2826A2D300CFE6E3 /* ChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB67745A2826A2D300CFE6E3 /* ChoiceView.swift */; };
 		CB77FFAD2826789100939D19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB77FFAC2826789100939D19 /* AppDelegate.swift */; };
 		CB77FFAF2826789100939D19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB77FFAE2826789100939D19 /* SceneDelegate.swift */; };
 		CB77FFB12826789100939D19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB77FFB02826789100939D19 /* ViewController.swift */; };
 		CB77FFB62826789300939D19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB77FFB52826789300939D19 /* Assets.xcassets */; };
 		CB77FFB92826789300939D19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB77FFB72826789300939D19 /* LaunchScreen.storyboard */; };
+		CBB324462827D954002BF794 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB324452827D954002BF794 /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB634A02282A568F007A4ADF /* StockPrice .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockPrice .swift"; sourceTree = "<group>"; };
+		CB634A04282A5704007A4ADF /* StockPriceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceViewModel.swift; sourceTree = "<group>"; };
 		CB67745A2826A2D300CFE6E3 /* ChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceView.swift; sourceTree = "<group>"; };
 		CB77FFA92826789100939D19 /* S&P 500.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "S&P 500.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB77FFAC2826789100939D19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +29,7 @@
 		CB77FFB52826789300939D19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB77FFB82826789300939D19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB77FFBA2826789300939D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBB324452827D954002BF794 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,7 @@
 			children = (
 				CB77FFB72826789300939D19 /* LaunchScreen.storyboard */,
 				CB67745A2826A2D300CFE6E3 /* ChoiceView.swift */,
+				CBB324452827D954002BF794 /* CustomTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -78,6 +85,7 @@
 		CB77FFC12826792300939D19 /* ModelView */ = {
 			isa = PBXGroup;
 			children = (
+				CB634A04282A5704007A4ADF /* StockPriceViewModel.swift */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -85,6 +93,7 @@
 		CB77FFC22826793A00939D19 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CB634A02282A568F007A4ADF /* StockPrice .swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,9 +187,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB77FFB12826789100939D19 /* ViewController.swift in Sources */,
+				CBB324462827D954002BF794 /* CustomTableViewCell.swift in Sources */,
 				CB77FFAD2826789100939D19 /* AppDelegate.swift in Sources */,
 				CB67745B2826A2D300CFE6E3 /* ChoiceView.swift in Sources */,
+				CB634A05282A5704007A4ADF /* StockPriceViewModel.swift in Sources */,
 				CB77FFAF2826789100939D19 /* SceneDelegate.swift in Sources */,
+				CB634A03282A568F007A4ADF /* StockPrice .swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
