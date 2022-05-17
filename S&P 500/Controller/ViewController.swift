@@ -15,7 +15,6 @@ class ViewController: UIViewController
     
     // MARK: - PROPERTIRES
     var isStockActive: Bool = true
-    var stockList: [StockPrice] = [StockPrice]()
     
     // MARK: - VIEW ELEMENTES
     var stackView: UIStackView = {
@@ -102,7 +101,7 @@ class ViewController: UIViewController
         stackView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(stackView)
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "customCell")
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "customCell")
         customChoiceStack()
         
         stockLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -132,10 +131,9 @@ class ViewController: UIViewController
 
 }
 
-// MARK: -
+// MARK: - StockPriceDelegate
 extension ViewController: StockPriceDelegate{
     func update() {
-        stockList = stockPriceViewModel.stocks
         tableView.reloadData()
         print("Number \(stockPriceViewModel.stocks.count)")
     }
@@ -145,12 +143,17 @@ extension ViewController: StockPriceDelegate{
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stockList.count
+        return stockPriceViewModel.stocks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath)
-        let content = cell.defaultContentConfiguration()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
+        cell.tickerOfStock.backgroundColor = .gray
+        cell.tickerOfStock.text = stockPriceViewModel.stocks[indexPath.row].ticker
+        cell.nameOfCompany.text = stockPriceViewModel.stocks[indexPath.row].companyName
+        cell.priceOfStock.text = "$\(stockPriceViewModel.stocks[indexPath.row].price!)"
+        cell.priceChange.text = "$\(stockPriceViewModel.stocks[indexPath.row].changeRate!) (\(stockPriceViewModel.stocks[indexPath.row].changeRatePercent!)%)"
+        cell.logo.loadFrom(URLAddress: stockPriceViewModel.stocks[indexPath.row].companyLogo ?? "")
         return cell
     }
     
@@ -160,4 +163,6 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     
 }
+
+
 

@@ -13,45 +13,79 @@ protocol StockPriceDelegate: class{
 
 
 class StockPriceViewModel {
+    // MARK: - Delegate
     weak var delegate: StockPriceDelegate!
     
-    var stocks: [StockPrice] = [StockPrice]()
+    // MARK: - Main data
+    var stocks: [Stock] = [Stock]()
     
-    let stockIndexs: [String] = [ "AAPL" , "YNDX", "GOOGL" , "AMZN" , "BAC", "MSFT" , "TSLA" , "MA"]
+    // MARK: - Properties
+    let stockTickers: [String] = [ "AAPL" , "YNDX", "GOOGL" , "AMZN" , "BAC", "MSFT" , "TSLA" , "MA"]
     let token: String = "&token=c9t1pkaad3ib0ug34a5g"
-    let url: String = "https://finnhub.io/api/v1/quote?symbol="
+    let urlForStockPrice: String = "https://finnhub.io/api/v1/quote?symbol="
+    let urlForStockProfile: String = "https://finnhub.io/api/v1/stock/profile2?symbol="
     
     
+    // MARK: - Func 
     func parseData(){
-        for stockIndex in self.stockIndexs {
-            self.fetchStock(stockIndex: stockIndex)
+        for stockTicker in self.stockTickers {
+            self.fetchStockPrice(stockTicker: stockTicker)
         }
-        print("Number \(stocks.count)")
     }
     
-    private func fetchStock(stockIndex: String){
-        let urlStock = url+stockIndex+token
-        if let safeUrl = URL(string: urlStock){
+    private func fetchStockPrice(stockTicker: String){
+        let url = urlForStockPrice+stockTicker+token
+        if let safeUrl = URL(string: url){
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: safeUrl) { data, response, error in
                 guard error == nil else{
+                    print(error)
                     return
                 }
                 let decoder = JSONDecoder()
                 if let safeData = data {
                     do{
                         var result = try decoder.decode(StockPrice.self, from: safeData)
-                        DispatchQueue.main.sync{
-                            result.index = stockIndex
-                            self.stocks.append(result)
+                        DispatchQueue.main.sync{ [weak self] in
+                            var instance = Stock()
+                            instance.ticker = stockTicker
+                            instance.enteringDataFromStockPrice(stockPrice: result)
+                            self?.stocks.append(instance)
                             print(result)
-                            self.delegate.update()
+                            self?.fetchStockProfile(stockIndex: (self?.stocks.count ?? 1)-1)
                         }
                     }catch{
                         print(error)
                     }
                 }
             }.resume()
+        }
+    }
+    
+    private func fetchStockProfile(stockIndex: Int){
+        let url = urlForStockProfile+(stocks[stockIndex].ticker!)+token
+        if let safeUrl = URL(string: url){
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: safeUrl) { data, response, error in
+                guard error == nil else{
+                    print(error)
+                    return
+                }
+                let decoder = JSONDecoder()
+                if let safedata = data {
+                    do{
+                        var result = try decoder.decode(StockProfile.self, from: safedata)
+                        DispatchQueue.main.sync { [weak self] in
+                            self?.stocks[stockIndex].enteringDataFromStockProfile(stockProfile: result)
+                            print(result)
+                            self?.delegate.update()
+                        }
+                    }catch{
+                        print(error)
+                    }
+                }
+            }
+                .resume()
         }
     }
     
