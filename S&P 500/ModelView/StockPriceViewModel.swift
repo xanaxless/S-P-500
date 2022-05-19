@@ -20,7 +20,7 @@ class StockPriceViewModel {
     var stocks: [Stock] = [Stock]()
     
     // MARK: - Properties
-    let stockTickers: [String] = [ "AAPL" , "YNDX", "GOOGL" , "AMZN" , "BAC", "MSFT" , "TSLA" , "MA"]
+    let stockTickers: [String] = [ "AAPL" , "YNDX", "GOOGL" , "AMZN" , "BAC", "MSFT" , "TSLA" ,"WU" ,"WY", "WLTW", "XLNX", "YUM", "ZBRA" ]
     let token: String = "&token=c9t1pkaad3ib0ug34a5g"
     let urlForStockPrice: String = "https://finnhub.io/api/v1/quote?symbol="
     let urlForStockProfile: String = "https://finnhub.io/api/v1/stock/profile2?symbol="
@@ -39,7 +39,7 @@ class StockPriceViewModel {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: safeUrl) { data, response, error in
                 guard error == nil else{
-                    print(error)
+                    print(error!)
                     return
                 }
                 let decoder = JSONDecoder()

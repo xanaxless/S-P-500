@@ -14,6 +14,7 @@
 		CB77FFB12826789100939D19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB77FFB02826789100939D19 /* ViewController.swift */; };
 		CB77FFB62826789300939D19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB77FFB52826789300939D19 /* Assets.xcassets */; };
 		CB77FFB92826789300939D19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB77FFB72826789300939D19 /* LaunchScreen.storyboard */; };
+		CB7BF2C22836290A006EB9FD /* FavouriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BF2C12836290A006EB9FD /* FavouriteManager.swift */; };
 		CBB324462827D954002BF794 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB324452827D954002BF794 /* CustomTableViewCell.swift */; };
 		CBD2EDE928336968000563E7 /* StockProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2EDE828336968000563E7 /* StockProfile.swift */; };
 		CBD2EDEC28336B11000563E7 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2EDEB28336B11000563E7 /* Stock.swift */; };
@@ -30,6 +31,7 @@
 		CB77FFB52826789300939D19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB77FFB82826789300939D19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB77FFBA2826789300939D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB7BF2C12836290A006EB9FD /* FavouriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteManager.swift; sourceTree = "<group>"; };
 		CBB324452827D954002BF794 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		CBD2EDE828336968000563E7 /* StockProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockProfile.swift; sourceTree = "<group>"; };
 		CBD2EDEB28336B11000563E7 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				CB77FFC22826793A00939D19 /* Model */,
 				CB77FFC12826792300939D19 /* ModelView */,
 				CB77FFC02826791600939D19 /* View */,
+				CB7BF2C02836289F006EB9FD /* Manager  */,
 				CB77FFBA2826789300939D19 /* Info.plist */,
 			);
 			path = "S&P 500";
@@ -119,6 +122,14 @@
 				CB77FFB52826789300939D19 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		CB7BF2C02836289F006EB9FD /* Manager  */ = {
+			isa = PBXGroup;
+			children = (
+				CB7BF2C12836290A006EB9FD /* FavouriteManager.swift */,
+			);
+			path = "Manager ";
 			sourceTree = "<group>";
 		};
 		CBD2EDEA28336AC7000563E7 /* Data */ = {
@@ -211,6 +222,7 @@
 				CB77FFB12826789100939D19 /* ViewController.swift in Sources */,
 				CBB324462827D954002BF794 /* CustomTableViewCell.swift in Sources */,
 				CBD2EDE928336968000563E7 /* StockProfile.swift in Sources */,
+				CB7BF2C22836290A006EB9FD /* FavouriteManager.swift in Sources */,
 				CB77FFAD2826789100939D19 /* AppDelegate.swift in Sources */,
 				CBD2EDEF28339DF0000563E7 /* UIImageviewExtention.swift in Sources */,
 				CB634A05282A5704007A4ADF /* StockPriceViewModel.swift in Sources */,
@@ -373,7 +385,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -400,7 +412,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -9,6 +9,12 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
     // MARK: - properties
+    let darkColor = UIColor(red: 0.941, green: 0.955, blue: 0.97, alpha: 1)
+    let lightColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+    let greenColor = UIColor(red: 0.14, green: 0.7, blue: 0.364, alpha: 1)
+    let redColor = UIColor(red: 0.7, green: 0.14, blue: 0.14, alpha: 1)
+    // MARK: - Managers
+    var favoriteStockManager: FavouriteManager?
     
     // MARK: - View elements
     var horizontalStack: UIStackView = {
@@ -43,12 +49,23 @@ class CustomTableViewCell: UITableViewCell {
         return stack
     }()
     
+    var tickerStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.alignment = .leading
+        stack.spacing = 5.0
+        stack.layer.cornerRadius = 20
+        return stack
+    }()
+    
     var logo: UIImageView = {
         var imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
+        imageView.layer.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         return imageView
     }()
     
@@ -57,6 +74,16 @@ class CustomTableViewCell: UITableViewCell {
         name.translatesAutoresizingMaskIntoConstraints = false
         name.font = .systemFont(ofSize: 20, weight: .semibold)
         return name
+    }()
+    
+    var starButton: UIButton = {
+        var button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        button.imageView?.image = .init(systemName: "star.fill")
+        button.imageView?.tintColor = .systemGray
+        button.addTarget(self, action: #selector(starTapped(_:)), for: .touchUpInside)
+        return button
     }()
     
     var nameOfCompany: UILabel = {
@@ -80,7 +107,10 @@ class CustomTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        nameStack.addArrangedSubview(tickerOfStock)
+        
+        tickerStack.addArrangedSubview(tickerOfStock)
+        tickerStack.addArrangedSubview(starButton)
+        nameStack.addArrangedSubview(tickerStack)
         nameStack.addArrangedSubview(nameOfCompany)
         priceStack.addArrangedSubview(priceOfStock)
         priceStack.addArrangedSubview(priceChange)
@@ -98,9 +128,28 @@ class CustomTableViewCell: UITableViewCell {
             contentView.heightAnchor.constraint(equalToConstant: 90),
             logo.heightAnchor.constraint(equalTo: horizontalStack.heightAnchor),
             logo.widthAnchor.constraint(equalTo: horizontalStack.heightAnchor),
-            priceStack.trailingAnchor.constraint(equalTo: horizontalStack.trailingAnchor)
+            priceStack.trailingAnchor.constraint(equalTo: horizontalStack.trailingAnchor),
+            nameStack.widthAnchor.constraint(lessThanOrEqualTo: horizontalStack.widthAnchor, multiplier: 0.40)
         ])
         contentView.layer.cornerRadius = 20;
+    }
+    
+    func setView(stock : Stock, index : Int){
+        if index%2 == 0 {
+            contentView.backgroundColor = darkColor
+        }else{
+            contentView.backgroundColor = lightColor
+        }
+        tickerOfStock.text = stock.ticker
+        nameOfCompany.text = stock.companyName
+        priceOfStock.text = "$\(stock.price!)"
+        priceChange.text = "$\(stock.changeRate!) (\(stock.changeRatePercent!)%)"
+        logo.loadFrom(URLAddress: stock.companyLogo ?? "")
+        if (favoriteStockManager?.favouriteStocks.contains(stock.ticker!) == true) {
+            starButton.imageView?.tintColor = .systemYellow
+        }else{
+            starButton.imageView?.tintColor = .systemGray
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -111,6 +160,18 @@ class CustomTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    @objc func starTapped(_ sender: UIButton!){
+        if(starButton.imageView?.tintColor == .systemYellow){
+            starButton.imageView?.tintColor = .systemGray
+            favoriteStockManager?.removeStock(stock: tickerOfStock.text!)
+        }
+        else{
+            starButton.imageView?.tintColor = .systemYellow
+            favoriteStockManager?.addStock(stock: tickerOfStock.text!)
+        }
     }
 
 }
@@ -628,4 +689,3 @@ ZBH
 ZION
 ZTS
  */
-

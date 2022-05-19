@@ -10,9 +10,13 @@ import UIKit
 class ViewController: UIViewController 
 {
     let base : [String] = [ "AAPL" , "YNDX", "GOOGL" , "AMZN" , "BAC", "MSFT" , "TSLA" , "MA"]
+    
     // MARK: - ViewModels
     let stockPriceViewModel = StockPriceViewModel()
     
+    // MARK: - Managers
+    
+    let favoriteStocksManager = FavouriteManager()
     // MARK: - PROPERTIRES
     var isStockActive: Bool = true
     
@@ -74,14 +78,15 @@ class ViewController: UIViewController
     var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.backgroundColor = UIColor.systemGray
+        table.separatorStyle = .none
         return table
-    }()
+    }() 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         stockPriceViewModel.parseData()
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,12 +153,8 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
-        cell.tickerOfStock.backgroundColor = .gray
-        cell.tickerOfStock.text = stockPriceViewModel.stocks[indexPath.row].ticker
-        cell.nameOfCompany.text = stockPriceViewModel.stocks[indexPath.row].companyName
-        cell.priceOfStock.text = "$\(stockPriceViewModel.stocks[indexPath.row].price!)"
-        cell.priceChange.text = "$\(stockPriceViewModel.stocks[indexPath.row].changeRate!) (\(stockPriceViewModel.stocks[indexPath.row].changeRatePercent!)%)"
-        cell.logo.loadFrom(URLAddress: stockPriceViewModel.stocks[indexPath.row].companyLogo ?? "")
+        cell.favoriteStockManager = favoriteStocksManager
+        cell.setView(stock: stockPriceViewModel.stocks[indexPath.row], index: indexPath.row)
         return cell
     }
     
