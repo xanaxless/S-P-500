@@ -31,7 +31,7 @@ class ViewController: UIViewController
         return stack
     }()
      
-    var stockLabel: UITextView = {
+    var stockButton: UITextView = {
         let textLabel = UITextView()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "Stocks"
@@ -43,7 +43,7 @@ class ViewController: UIViewController
         return textLabel
     }()
 
-    var favoriteLabel: UITextView = {
+    var favoriteButton: UITextView = {
         let textLabel = UITextView()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "Favourite"
@@ -58,7 +58,7 @@ class ViewController: UIViewController
     var stackforChoice: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.alignment = .top
+        stack.alignment = .bottom
         stack.distribution = .equalCentering
         stack.spacing = 16.0
         return stack
@@ -109,11 +109,11 @@ class ViewController: UIViewController
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "customCell")
         customChoiceStack()
         
-        stockLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        stockLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        stockButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        stockButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        favoriteLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        favoriteLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        favoriteButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         tableView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         tableView.topAnchor.constraint(equalTo: stackforChoice.bottomAnchor).isActive = true
@@ -127,11 +127,12 @@ class ViewController: UIViewController
         
         stackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
         stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+
     }
     
     private func customChoiceStack(){
-        stackforChoice.addArrangedSubview(stockLabel)
-        stackforChoice.addArrangedSubview(favoriteLabel)
+        stackforChoice.addArrangedSubview(stockButton)
+        stackforChoice.addArrangedSubview(favoriteButton)
     }
 
 }

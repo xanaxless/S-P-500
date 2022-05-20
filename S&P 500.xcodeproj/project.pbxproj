@@ -16,6 +16,8 @@
 		CB77FFB92826789300939D19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB77FFB72826789300939D19 /* LaunchScreen.storyboard */; };
 		CB7BF2C22836290A006EB9FD /* FavouriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BF2C12836290A006EB9FD /* FavouriteManager.swift */; };
 		CBB324462827D954002BF794 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB324452827D954002BF794 /* CustomTableViewCell.swift */; };
+		CBBF437528376EE40032DAB3 /* Montserrat-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBBF437328376EE40032DAB3 /* Montserrat-Italic-VariableFont_wght.ttf */; };
+		CBBF437628376EE40032DAB3 /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBBF437428376EE40032DAB3 /* Montserrat-VariableFont_wght.ttf */; };
 		CBD2EDE928336968000563E7 /* StockProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2EDE828336968000563E7 /* StockProfile.swift */; };
 		CBD2EDEC28336B11000563E7 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2EDEB28336B11000563E7 /* Stock.swift */; };
 		CBD2EDEF28339DF0000563E7 /* UIImageviewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2EDEE28339DF0000563E7 /* UIImageviewExtention.swift */; };
@@ -33,6 +35,8 @@
 		CB77FFBA2826789300939D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB7BF2C12836290A006EB9FD /* FavouriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteManager.swift; sourceTree = "<group>"; };
 		CBB324452827D954002BF794 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		CBBF437328376EE40032DAB3 /* Montserrat-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		CBBF437428376EE40032DAB3 /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		CBD2EDE828336968000563E7 /* StockProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockProfile.swift; sourceTree = "<group>"; };
 		CBD2EDEB28336B11000563E7 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
 		CBD2EDEE28339DF0000563E7 /* UIImageviewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageviewExtention.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 				CB77FFC12826792300939D19 /* ModelView */,
 				CB77FFC02826791600939D19 /* View */,
 				CB7BF2C02836289F006EB9FD /* Manager  */,
+				CBBF437228376EBE0032DAB3 /* Fonts  */,
 				CB77FFBA2826789300939D19 /* Info.plist */,
 			);
 			path = "S&P 500";
@@ -130,6 +135,15 @@
 				CB7BF2C12836290A006EB9FD /* FavouriteManager.swift */,
 			);
 			path = "Manager ";
+			sourceTree = "<group>";
+		};
+		CBBF437228376EBE0032DAB3 /* Fonts  */ = {
+			isa = PBXGroup;
+			children = (
+				CBBF437328376EE40032DAB3 /* Montserrat-Italic-VariableFont_wght.ttf */,
+				CBBF437428376EE40032DAB3 /* Montserrat-VariableFont_wght.ttf */,
+			);
+			path = "Fonts ";
 			sourceTree = "<group>";
 		};
 		CBD2EDEA28336AC7000563E7 /* Data */ = {
@@ -207,7 +221,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBBF437628376EE40032DAB3 /* Montserrat-VariableFont_wght.ttf in Resources */,
 				CB77FFB92826789300939D19 /* LaunchScreen.storyboard in Resources */,
+				CBBF437528376EE40032DAB3 /* Montserrat-Italic-VariableFont_wght.ttf in Resources */,
 				CB77FFB62826789300939D19 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

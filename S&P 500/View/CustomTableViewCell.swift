@@ -33,8 +33,6 @@ class CustomTableViewCell: UITableViewCell {
         stack.axis = .vertical
         stack.alignment = .leading
         stack.distribution = .equalSpacing
-        stack.spacing = 5.0
-        stack.layer.cornerRadius = 20
         return stack
     }()
     
@@ -72,7 +70,7 @@ class CustomTableViewCell: UITableViewCell {
     var tickerOfStock: UILabel = {
         var name: UILabel = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
-        name.font = .systemFont(ofSize: 20, weight: .semibold)
+        name.font = UIFont(name: "MontserratRoman-Bold", size: 18)
         return name
     }()
     
@@ -89,19 +87,21 @@ class CustomTableViewCell: UITableViewCell {
     var nameOfCompany: UILabel = {
         var name: UILabel = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
-        name.font = .systemFont(ofSize: 12, weight: .medium)
+        name.font = UIFont(name: "MontserratRoman-SemiBold", size: 12)
         return name
     }()
     
     var priceOfStock: UILabel = {
         var price: UILabel = UILabel()
         price.translatesAutoresizingMaskIntoConstraints = false
+        price.font = UIFont(name: "MontserratRoman-Bold", size: 20)
         return price
     }()
     
     var priceChange: UILabel = {
         var price: UILabel = UILabel()
         price.translatesAutoresizingMaskIntoConstraints = false
+        price.font = UIFont(name: "MontserratRoman-SemiBold", size: 14)
         return price
     }()
 
@@ -139,6 +139,13 @@ class CustomTableViewCell: UITableViewCell {
             contentView.backgroundColor = darkColor
         }else{
             contentView.backgroundColor = lightColor
+        }
+        if stock.changeRate! >= 0.0 {
+            priceOfStock.textColor = greenColor
+            priceChange.textColor = greenColor
+        }else {
+            priceOfStock.textColor = redColor
+            priceChange.textColor = redColor
         }
         tickerOfStock.text = stock.ticker
         nameOfCompany.text = stock.companyName
