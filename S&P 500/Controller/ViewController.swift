@@ -18,8 +18,9 @@ class ViewController: UIViewController
     
     let favoriteStocksManager = FavouriteManager()
     // MARK: - PROPERTIRES
-    var isStockActive: Bool = true
-    
+    var isStockActiveFavorite: Bool = false
+    var darkTitleColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+    var grayTitleColor = UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1)
     // MARK: - VIEW ELEMENTES
     var stackView: UIStackView = {
         let stack = UIStackView()
@@ -31,28 +32,26 @@ class ViewController: UIViewController
         return stack
     }()
      
-    var stockButton: UITextView = {
-        let textLabel = UITextView()
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "Stocks"
-        textLabel.textAlignment = .center
-        textLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        textLabel.textColor = .black
-        textLabel.isEditable = false
-        textLabel.isScrollEnabled = false
-        return textLabel
+    var stockButton: UIButton = {
+        let textButton = UIButton()
+        textButton.translatesAutoresizingMaskIntoConstraints = false
+        textButton.setTitle("Button", for: .normal)
+        textButton.setTitleColor( UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1), for: .normal)
+        textButton.titleLabel?.textAlignment = .center
+        textButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 30)
+        textButton.addTarget(self, action: #selector(favoriteTapped(_:)), for: .touchUpInside)
+        return textButton
     }()
 
-    var favoriteButton: UITextView = {
-        let textLabel = UITextView()
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "Favourite"
-        textLabel.textAlignment = .center
-        textLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        textLabel.textColor = .systemGray
-        textLabel.isEditable = false
-        textLabel.isScrollEnabled = false
-        return textLabel
+    var favoriteButton: UIButton = {
+        let textButton = UIButton()
+        textButton.translatesAutoresizingMaskIntoConstraints = false
+        textButton.setTitle("Favorite", for: .normal)
+        textButton.setTitleColor(UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1), for: .normal)
+        textButton.titleLabel?.textAlignment = .center
+        textButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 20)
+        textButton.addTarget(self, action: #selector(favoriteTapped(_:)), for: .touchUpInside)
+        return textButton
     }()
     
     var stackforChoice: UIStackView = {
@@ -134,7 +133,26 @@ class ViewController: UIViewController
         stackforChoice.addArrangedSubview(stockButton)
         stackforChoice.addArrangedSubview(favoriteButton)
     }
+    // MARK: - ButtonActions
+    
+    @objc func favoriteTapped(_ sender: UIButton!){
+        guard isStockActiveFavorite == false else{
+            return
+        }
+        isStockActiveFavorite.toggle()
+        self.tableView.reloadData()
+        UIView.transition(with: tableView, duration: 0.1, options: .transitionCrossDissolve) {
+            
+        }
 
+    }
+    
+    
+    
+    
+    
+    
+    
 }
 
 // MARK: - StockPriceDelegate
@@ -149,6 +167,9 @@ extension ViewController: StockPriceDelegate{
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isStockActiveFavorite{
+            return favoriteStocksManager.favouriteStocks.count
+        }
         return stockPriceViewModel.stocks.count
     }
     

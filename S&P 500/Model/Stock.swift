@@ -16,7 +16,6 @@ struct Stock {
     var price: Double?
     var changeRate: Double?
     var changeRatePercent: Double?
-    
     mutating func enteringDataFromStockPrice(stockPrice: StockPrice){
         self.price = stockPrice.c
         self.changeRate = stockPrice.d
@@ -28,4 +27,5 @@ struct Stock {
         self.companyLogo = stockProfile.logo
         self.ticker = stockProfile.ticker
     }
+    
 }
