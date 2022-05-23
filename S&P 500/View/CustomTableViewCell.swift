@@ -151,7 +151,7 @@ class CustomTableViewCell: UITableViewCell {
         nameOfCompany.text = stock.companyName
         priceOfStock.text = "$\(stock.price!)"
         priceChange.text = "$\(stock.changeRate!) (\(stock.changeRatePercent!)%)"
-        logo.loadFrom(URLAddress: stock.companyLogo ?? "")
+        logo.image = stock.Logo
         if (favoriteStockManager?.favouriteStocks.contains(stock.ticker!) == true) {
             starButton.imageView?.tintColor = .systemYellow
         }else{

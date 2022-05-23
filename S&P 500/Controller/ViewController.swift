@@ -9,7 +9,6 @@ import UIKit
 
 class ViewController: UIViewController 
 {
-    let base : [String] = [ "AAPL" , "YNDX", "GOOGL" , "AMZN" , "BAC", "MSFT" , "TSLA" , "MA"]
     
     // MARK: - ViewModels
     let stockPriceViewModel = StockPriceViewModel()
@@ -35,11 +34,11 @@ class ViewController: UIViewController
     var stockButton: UIButton = {
         let textButton = UIButton()
         textButton.translatesAutoresizingMaskIntoConstraints = false
-        textButton.setTitle("Button", for: .normal)
+        textButton.setTitle("Stocks", for: .normal)
         textButton.setTitleColor( UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1), for: .normal)
         textButton.titleLabel?.textAlignment = .center
         textButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 30)
-        textButton.addTarget(self, action: #selector(favoriteTapped(_:)), for: .touchUpInside)
+        textButton.addTarget(self, action: #selector(stocksTapped(_:)), for: .touchUpInside)
         return textButton
     }()
 
@@ -140,12 +139,24 @@ class ViewController: UIViewController
             return
         }
         isStockActiveFavorite.toggle()
-        self.tableView.reloadData()
         UIView.transition(with: tableView, duration: 0.1, options: .transitionCrossDissolve) {
-            
+            self.tableView.reloadData()
         }
-
+        print("favorite tapped")
     }
+
+    
+    @objc func stocksTapped(_ sender: UIButton!){
+        guard isStockActiveFavorite == true else{
+            return
+        }
+        isStockActiveFavorite.toggle()
+        UIView.transition(with: tableView, duration: 0.1, options: .transitionCrossDissolve) {
+            self.tableView.reloadData()
+        }
+        print("stocks tapped")
+    }
+    
     
     
     

@@ -14,7 +14,7 @@ class FavouriteManager {
     
     init() {
         loadStocksArray()
-        print(favouriteStocks)
+        print("this is favourite\(favouriteStocks)")
     }
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)

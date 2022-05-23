@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol StockPriceDelegate: class{
     func update()
@@ -78,7 +79,7 @@ class StockPriceViewModel {
                         DispatchQueue.main.sync { [weak self] in
                             self?.stocks[stockIndex].enteringDataFromStockProfile(stockProfile: result)
                             print(result)
-                            self?.delegate.update()
+                            self?.LoadLogo(URLAddress: result.logo, stockIndex: stockIndex)
                         }
                     }catch{
                         print(error)
@@ -89,6 +90,21 @@ class StockPriceViewModel {
         }
     }
     
-    
-    
+    private func LoadLogo(URLAddress: String, stockIndex: Int){
+        guard let url = URL(string: URLAddress) else{
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            if let imageData = try? Data(contentsOf: url){
+                if let loadedImage = UIImage(data: imageData){
+                    self?.stocks[stockIndex].Logo = loadedImage
+                }
+            }
+            self?.delegate.update()
+        }
+    }
 }
+
+
+

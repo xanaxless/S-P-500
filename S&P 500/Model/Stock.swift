@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // model that will be used to interact with views
 
@@ -13,9 +14,11 @@ struct Stock {
     var ticker: String?
     var companyName: String?
     var companyLogo: String?
+    var Logo: UIImage?
     var price: Double?
     var changeRate: Double?
     var changeRatePercent: Double?
+    
     mutating func enteringDataFromStockPrice(stockPrice: StockPrice){
         self.price = stockPrice.c
         self.changeRate = stockPrice.d
