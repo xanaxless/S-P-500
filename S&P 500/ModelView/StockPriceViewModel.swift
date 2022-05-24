@@ -19,8 +19,13 @@ class StockPriceViewModel {
     
     // MARK: - Main data
     var stocks: [Stock] = [Stock]()
+    var displayingstocks: [Stock] = [Stock] ()
     
+    // MARK: - Managers
+    let favoriteStocksManager = FavouriteManager()
+
     // MARK: - Properties
+    var isStockActiveFavorite: Bool = false
     let stockTickers: [String] = [ "AAPL" , "YNDX", "GOOGL" , "AMZN" , "BAC", "MSFT" , "TSLA" ,"WU" ,"WY", "WLTW", "XLNX", "YUM", "ZBRA" ]
     let token: String = "&token=c9t1pkaad3ib0ug34a5g"
     let urlForStockPrice: String = "https://finnhub.io/api/v1/quote?symbol="
@@ -34,6 +39,7 @@ class StockPriceViewModel {
         }
     }
     
+    // loading price/ticker of company
     private func fetchStockPrice(stockTicker: String){
         let url = urlForStockPrice+stockTicker+token
         if let safeUrl = URL(string: url){
@@ -63,6 +69,7 @@ class StockPriceViewModel {
         }
     }
     
+    // loading profile of the company
     private func fetchStockProfile(stockIndex: Int){
         let url = urlForStockProfile+(stocks[stockIndex].ticker!)+token
         if let safeUrl = URL(string: url){
@@ -90,6 +97,7 @@ class StockPriceViewModel {
         }
     }
     
+    // Loading logo image
     private func LoadLogo(URLAddress: String, stockIndex: Int){
         guard let url = URL(string: URLAddress) else{
             return
@@ -101,8 +109,29 @@ class StockPriceViewModel {
                     self?.stocks[stockIndex].Logo = loadedImage
                 }
             }
-            self?.delegate.update()
+            self?.prepareForDisplay()
         }
+    }
+    
+    // Preparing to update viewtable
+    private func prepareForDisplay(){
+        if isStockActiveFavorite{
+            displayingstocks.removeAll()
+            for item in stocks {
+                if(favoriteStocksManager.favouriteStocks.contains(item.ticker ?? "")){
+                    displayingstocks.append(item)
+                }
+            }
+        }else{
+            displayingstocks=stocks
+        }
+        self.delegate.update()
+    }
+    
+    // Get message from delegate to change mode of display
+    func changeMode(){
+        isStockActiveFavorite.toggle()
+        prepareForDisplay()
     }
 }
 

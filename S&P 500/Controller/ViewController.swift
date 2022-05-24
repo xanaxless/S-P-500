@@ -13,11 +13,7 @@ class ViewController: UIViewController
     // MARK: - ViewModels
     let stockPriceViewModel = StockPriceViewModel()
     
-    // MARK: - Managers
-    
-    let favoriteStocksManager = FavouriteManager()
     // MARK: - PROPERTIRES
-    var isStockActiveFavorite: Bool = false
     var darkTitleColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
     var grayTitleColor = UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1)
     // MARK: - VIEW ELEMENTES
@@ -57,7 +53,7 @@ class ViewController: UIViewController
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.alignment = .bottom
-        stack.distribution = .equalCentering
+        stack.distribution = .equalSpacing
         stack.spacing = 16.0
         return stack
     }()
@@ -135,11 +131,13 @@ class ViewController: UIViewController
     // MARK: - ButtonActions
     
     @objc func favoriteTapped(_ sender: UIButton!){
-        guard isStockActiveFavorite == false else{
+        guard stockPriceViewModel.isStockActiveFavorite == false else{
             return
         }
-        isStockActiveFavorite.toggle()
-        UIView.transition(with: tableView, duration: 0.1, options: .transitionCrossDissolve) {
+        stockPriceViewModel.changeMode()
+        UIView.transition(with: tableView, duration: 0.5, options: .transitionCrossDissolve) {
+            self.stockButton.setTitleColor(self.grayTitleColor, for: .normal)
+            self.favoriteButton.setTitleColor(self.darkTitleColor, for: .normal)
             self.tableView.reloadData()
         }
         print("favorite tapped")
@@ -147,11 +145,13 @@ class ViewController: UIViewController
 
     
     @objc func stocksTapped(_ sender: UIButton!){
-        guard isStockActiveFavorite == true else{
+        guard stockPriceViewModel.isStockActiveFavorite == true else{
             return
         }
-        isStockActiveFavorite.toggle()
-        UIView.transition(with: tableView, duration: 0.1, options: .transitionCrossDissolve) {
+        stockPriceViewModel.changeMode()
+        UIView.transition(with: tableView, duration: 0.5, options: .transitionCrossDissolve) {
+            self.stockButton.setTitleColor(self.darkTitleColor, for: .normal)
+            self.favoriteButton.setTitleColor(self.grayTitleColor, for: .normal)
             self.tableView.reloadData()
         }
         print("stocks tapped")
@@ -178,16 +178,13 @@ extension ViewController: StockPriceDelegate{
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isStockActiveFavorite{
-            return favoriteStocksManager.favouriteStocks.count
-        }
-        return stockPriceViewModel.stocks.count
+        return stockPriceViewModel.displayingstocks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
-        cell.favoriteStockManager = favoriteStocksManager
-        cell.setView(stock: stockPriceViewModel.stocks[indexPath.row], index: indexPath.row)
+        cell.favoriteStockManager = stockPriceViewModel.favoriteStocksManager
+        cell.setView(stock: stockPriceViewModel.displayingstocks[indexPath.row], index: indexPath.row)
         return cell
     }
     
