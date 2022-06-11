@@ -32,6 +32,10 @@ class StockPriceViewModel {
     let urlForStockProfile: String = "https://finnhub.io/api/v1/stock/profile2?symbol="
     
     
+    init() {
+        self.parseData()
+    }
+    
     // MARK: - Func 
     func parseData(){
         for stockTicker in self.stockTickers {
@@ -133,6 +137,35 @@ class StockPriceViewModel {
         isStockActiveFavorite.toggle()
         prepareForDisplay()
     }
+    
+    // filtering for the search
+    func filter(searchWord: String){
+        var length = searchWord.count
+        displayingstocks = stocks.filter { item in
+            if(item.ticker?.count ?? 0 >= length){
+                if let prefix = item.ticker?.prefix(length){
+                    if prefix == searchWord{
+                        return true
+                    }
+                }
+            }
+            if(item.companyName?.count ?? 0 >= length){
+                if let prefix = item.companyName?.prefix(length){
+                    if prefix == searchWord{
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+        self.delegate.update()
+    }
+    
+    // returning to normal state
+    func returningToNormal(){
+        prepareForDisplay()
+    }
+    
 }
 
 

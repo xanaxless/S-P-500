@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB1118E3283E169100267D0C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1118E2283E169100267D0C /* DetailViewController.swift */; };
 		CB634A03282A568F007A4ADF /* StockPrice .swift in Sources */ = {isa = PBXBuildFile; fileRef = CB634A02282A568F007A4ADF /* StockPrice .swift */; };
 		CB634A05282A5704007A4ADF /* StockPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB634A04282A5704007A4ADF /* StockPriceViewModel.swift */; };
 		CB77FFAD2826789100939D19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB77FFAC2826789100939D19 /* AppDelegate.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB1118E2283E169100267D0C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CB634A02282A568F007A4ADF /* StockPrice .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockPrice .swift"; sourceTree = "<group>"; };
 		CB634A04282A5704007A4ADF /* StockPriceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceViewModel.swift; sourceTree = "<group>"; };
 		CB77FFA92826789100939D19 /* S&P 500.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "S&P 500.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				CB77FFB02826789100939D19 /* ViewController.swift */,
+				CB1118E2283E169100267D0C /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB1118E3283E169100267D0C /* DetailViewController.swift in Sources */,
 				CB77FFB12826789100939D19 /* ViewController.swift in Sources */,
 				CBB324462827D954002BF794 /* CustomTableViewCell.swift in Sources */,
 				CBD2EDE928336968000563E7 /* StockProfile.swift in Sources */,

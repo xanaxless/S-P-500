@@ -22,7 +22,7 @@ class ViewController: UIViewController
         stack.axis = .vertical
         stack.alignment = .top
         stack.distribution = .equalSpacing
-        stack.spacing = 5.0
+        stack.spacing = 5
         stack.layer.cornerRadius = 20
         return stack
     }()
@@ -33,7 +33,7 @@ class ViewController: UIViewController
         textButton.setTitle("Stocks", for: .normal)
         textButton.setTitleColor( UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1), for: .normal)
         textButton.titleLabel?.textAlignment = .center
-        textButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 30)
+        textButton.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 40)
         textButton.addTarget(self, action: #selector(stocksTapped(_:)), for: .touchUpInside)
         return textButton
     }()
@@ -78,21 +78,22 @@ class ViewController: UIViewController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        stockPriceViewModel.parseData()
+        navigationController?.navigationBar.isHidden = true
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         stockPriceViewModel.delegate = self
+        searchBar.delegate = self
         setUpView()
         tableView.reloadData()
     }
     
     private func setUpView(){
         view.backgroundColor = .white
-        
         
         stackView.addArrangedSubview(searchBar)
         stackView.addArrangedSubview(stackforChoice)
@@ -103,12 +104,7 @@ class ViewController: UIViewController
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "customCell")
         customChoiceStack()
         
-        stockButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        stockButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        favoriteButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        favoriteButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
+        stackforChoice.heightAnchor.constraint(equalToConstant: 60)
         tableView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         tableView.topAnchor.constraint(equalTo: stackforChoice.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -127,6 +123,12 @@ class ViewController: UIViewController
     private func customChoiceStack(){
         stackforChoice.addArrangedSubview(stockButton)
         stackforChoice.addArrangedSubview(favoriteButton)
+        
+        stockButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        stockButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        favoriteButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     // MARK: - ButtonActions
     
@@ -169,7 +171,9 @@ class ViewController: UIViewController
 // MARK: - StockPriceDelegate
 extension ViewController: StockPriceDelegate{
     func update() {
-        tableView.reloadData()
+        UIView.animate(withDuration: 0.5) {
+            self.tableView.reloadData()
+        }
         print("Number \(stockPriceViewModel.stocks.count)")
     }
 }
@@ -192,6 +196,33 @@ extension ViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected")
+        let detailViewController = DetailViewController()
+        detailViewController.stock = stockPriceViewModel.displayingstocks[indexPath.row]
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension ViewController: UISearchBarDelegate{
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        stockPriceViewModel.filter(searchWord: searchText)
+        
+    }
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+        stockPriceViewModel.returningToNormal()
+    }
+        
+    
     
 }
 
