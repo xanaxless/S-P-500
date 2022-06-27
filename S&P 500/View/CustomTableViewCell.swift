@@ -141,12 +141,11 @@ class CustomTableViewCell: UITableViewCell {
             contentView.backgroundColor = lightColor
         }
         if stock.changeRate! >= 0.0 {
-            priceOfStock.textColor = greenColor
             priceChange.textColor = greenColor
         }else {
-            priceOfStock.textColor = redColor
             priceChange.textColor = redColor
         }
+        priceOfStock.textColor = .black
         tickerOfStock.text = stock.ticker
         nameOfCompany.text = stock.companyName
         priceOfStock.text = "$\(stock.price!)"

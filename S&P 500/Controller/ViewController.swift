@@ -69,6 +69,10 @@ class ViewController: UIViewController
         return searchBar
     }()
     
+    // MARK: - testing
+    var searchController = UISearchController(searchResultsController: nil)
+    // MARK: - testing
+    
     var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +82,6 @@ class ViewController: UIViewController
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
     }
     
     
@@ -88,14 +91,23 @@ class ViewController: UIViewController
         tableView.delegate = self
         stockPriceViewModel.delegate = self
         searchBar.delegate = self
+        // MARK: - testing
+        //searchController.delegate = self
+        
+        // MARK: - testing
         setUpView()
         tableView.reloadData()
     }
     
     private func setUpView(){
         view.backgroundColor = .white
-        
-        stackView.addArrangedSubview(searchBar)
+        navigationItem.titleView = searchBar
+        navigationController?.hidesBarsOnSwipe = true
+ //       navigationItem.searchController = searchController
+ //       navigationItem.hidesSearchBarWhenScrolling = true
+ //       navigationItem.largeTitleDisplayMode = .never
+ //       navigationController?.navigationBar.prefersLargeTitles = false
+ //       //stackView.addArrangedSubview(searchBar)
         stackView.addArrangedSubview(stackforChoice)
         stackView.addArrangedSubview(tableView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,18 +116,18 @@ class ViewController: UIViewController
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "customCell")
         customChoiceStack()
         
-        stackforChoice.heightAnchor.constraint(equalToConstant: 60)
+        //stackforChoice.heightAnchor.constraint(equalToConstant: 60)
         tableView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         tableView.topAnchor.constraint(equalTo: stackforChoice.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         
-        searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-        searchBar.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        //searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
+        //searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
+        //searchBar.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         
-        stackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40).isActive = true
+        stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
 
     }
@@ -201,8 +213,23 @@ extension ViewController: UITableViewDelegate {
         let detailViewController = DetailViewController()
         detailViewController.stock = stockPriceViewModel.displayingstocks[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
+        self.tableView.deselectRow(at: indexPath, animated: false)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let shouldHideNavBar = scrollView.contentOffset.y > 80
+        // 20 is an arbitrary number I added to compensate for some of scrolling
+        print(scrollView.contentOffset.y)
+        UIView.animate(withDuration: 0.5) {
+            self.navigationController?.setNavigationBarHidden(shouldHideNavBar, animated: true)
+            self.stackView.layoutIfNeeded()
+        }
+        
+        
+    }
+    
 }
+
 
 // MARK: - UISearchBarDelegate
 extension ViewController: UISearchBarDelegate{
@@ -221,9 +248,6 @@ extension ViewController: UISearchBarDelegate{
         
         stockPriceViewModel.returningToNormal()
     }
-        
-    
-    
 }
 
 
