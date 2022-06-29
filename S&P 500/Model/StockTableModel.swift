@@ -45,13 +45,13 @@ class StockTableModel{
                 if let safeData = data {
                     do{
                         let result = try decoder.decode(StockPrice.self, from: safeData)
-                        DispatchQueue.global(qos:.userInteractive).async { [weak self] in
+                        DispatchQueue.global(qos:.userInteractive).async {
                             var instance = Stock()
                             instance.ticker = stockTicker
                             instance.enteringDataFromStockPrice(stockPrice: result)
-                            self?.delegate.stocks.append(instance)
+                            self.delegate.stocks.append(instance)
                             print(result)
-                            self?.fetchStockProfile(stockIndex: (self?.delegate.stocks.count ?? 1)-1)
+                            self.fetchStockProfile(stockIndex: (self.delegate.stocks.count ?? 1)-1)
                         }
                     }catch{
                         print(error)
@@ -75,10 +75,10 @@ class StockTableModel{
                 if let safedata = data {
                     do{
                         let result = try decoder.decode(StockProfile.self, from: safedata)
-                        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-                            self?.delegate.stocks[stockIndex].enteringDataFromStockProfile(stockProfile: result)
+                        DispatchQueue.global(qos: .userInteractive).async {
+                            self.delegate.stocks[stockIndex].enteringDataFromStockProfile(stockProfile: result)
                             print(result)
-                            self?.LoadLogo(URLAddress: result.logo, stockIndex: stockIndex)
+                            self.LoadLogo(URLAddress: result.logo, stockIndex: stockIndex)
                         }
                     }catch{
                         print(error)
