@@ -26,17 +26,22 @@ class StockTableModel{
     
     // MARK: - Func
     func parseData(){
+        var semaphore = DispatchSemaphore(value: 10)
         for stockTicker in self.stockTickers {
-            self.fetchStockPrice(stockTicker: stockTicker)
+            self.fetchStockPrice(stockTicker: stockTicker, semaphore: semaphore)
         }
     }
     
+    // MARK: - OWN DispathQueue for networking
+    let queue: DispatchQueue = DispatchQueue(label: "com.StockTableModel", qos: .userInteractive, attributes: .concurrent)
+    
     // loading price/ticker of company
-    private func fetchStockPrice(stockTicker: String){
+    private func fetchStockPrice(stockTicker: String, semaphore: DispatchSemaphore){
+        semaphore.wait()
         let url = urlForStockPrice+stockTicker+token
         if let safeUrl = URL(string: url){
             let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: safeUrl) { data, response, error in
+            let task = session.dataTask(with: safeUrl) {[weak self] data, response, error in
                 guard error == nil else{
                     print(error!)
                     return
@@ -45,28 +50,31 @@ class StockTableModel{
                 if let safeData = data {
                     do{
                         let result = try decoder.decode(StockPrice.self, from: safeData)
-                        DispatchQueue.global(qos:.userInteractive).async {
+                        let workplace = DispatchWorkItem {
                             var instance = Stock()
                             instance.ticker = stockTicker
                             instance.enteringDataFromStockPrice(stockPrice: result)
-                            self.delegate.stocks.append(instance)
+                            self?.delegate.stocks.append(instance)
                             print(result)
-                            self.fetchStockProfile(stockIndex: (self.delegate.stocks.count ?? 1)-1)
+                            self?.fetchStockProfile(stockIndex: (self?.delegate.stocks.count ?? 1)-1, semaphore: semaphore)
                         }
+                        self?.queue.async(execute: workplace)
                     }catch{
                         print(error)
                     }
                 }
             }.resume()
         }
+        semaphore.signal()
     }
     
     // loading profile of the company
-    private func fetchStockProfile(stockIndex: Int){
+    private func fetchStockProfile(stockIndex: Int, semaphore: DispatchSemaphore){
+        semaphore.wait()
         let url = urlForStockProfile+(self.delegate.stocks[stockIndex].ticker!)+token
         if let safeUrl = URL(string: url){
             let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: safeUrl) { data, response, error in
+            let task = session.dataTask(with: safeUrl) {[weak self] data, response, error in
                 guard error == nil else{
                     print(error)
                     return
@@ -75,18 +83,18 @@ class StockTableModel{
                 if let safedata = data {
                     do{
                         let result = try decoder.decode(StockProfile.self, from: safedata)
-                        DispatchQueue.global(qos: .userInteractive).async {
-                            self.delegate.stocks[stockIndex].enteringDataFromStockProfile(stockProfile: result)
+                        self?.queue.async {
+                            self?.delegate.stocks[stockIndex].enteringDataFromStockProfile(stockProfile: result)
                             print(result)
-                            self.LoadLogo(URLAddress: result.logo, stockIndex: stockIndex)
+                            self?.LoadLogo(URLAddress: result.logo, stockIndex: stockIndex)
                         }
                     }catch{
                         print(error)
                     }
                 }
-            }
-                .resume()
+            }.resume()
         }
+        semaphore.signal()
     }
     
     // Loading logo image

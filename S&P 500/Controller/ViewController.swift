@@ -69,9 +69,6 @@ class ViewController: UIViewController
         return searchBar
     }()
     
-    // MARK: - testing
-    var searchController = UISearchController(searchResultsController: nil)
-    // MARK: - testing
     
     var tableView: UITableView = {
         let table = UITableView()
@@ -91,12 +88,7 @@ class ViewController: UIViewController
         tableView.delegate = self
         stockPriceViewModel.delegate = self
         searchBar.delegate = self
-        // MARK: - testing
-        //searchController.delegate = self
-        
-        // MARK: - testing
         setUpView()
-        tableView.reloadData()
     }
     
     private func setUpView(){
@@ -122,10 +114,10 @@ class ViewController: UIViewController
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         
+        
         //searchBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
         //searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
         //searchBar.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
         
         stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -141,7 +133,19 @@ class ViewController: UIViewController
         
         favoriteButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         favoriteButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        UIView.transition(with: favoriteButton, duration: 5, options: .curveEaseIn) {
+            self.favoriteButton.layoutIfNeeded()
+        }
+
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        UIView.transition(with: stockButton, duration: 6, options: .curveLinear) {
+            self.stockButton.layoutIfNeeded()
+        }
+    }
+    
     // MARK: - ButtonActions
     
     @objc func favoriteTapped(_ sender: UIButton!){
@@ -169,6 +173,7 @@ class ViewController: UIViewController
             self.tableView.reloadData()
         }
         print("stocks tapped")
+        
     }
     
     

@@ -178,6 +178,7 @@ class CustomTableViewCell: UITableViewCell {
             starButton.imageView?.tintColor = .systemYellow
             favoriteStockManager?.addStock(stock: tickerOfStock.text!)
         }
+        
     }
 
 }

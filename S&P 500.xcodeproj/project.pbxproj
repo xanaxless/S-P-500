@@ -33,7 +33,6 @@
 		CB1AF39E286987FE00E256C2 /* StockTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableModel.swift; sourceTree = "<group>"; };
 		CB634A02282A568F007A4ADF /* StockPrice .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockPrice .swift"; sourceTree = "<group>"; };
 		CB634A04282A5704007A4ADF /* StockPriceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceViewModel.swift; sourceTree = "<group>"; };
-		CB66063A2861B83E005D91EE /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CB77FFA92826789100939D19 /* S&P 500.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "S&P 500.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB77FFAC2826789100939D19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB77FFAE2826789100939D19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,7 +151,6 @@
 		CB77FFC42826795900939D19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CB66063A2861B83E005D91EE /* MyPlayground.playground */,
 				CB77FFAC2826789100939D19 /* AppDelegate.swift */,
 				CB77FFAE2826789100939D19 /* SceneDelegate.swift */,
 				CB77FFB52826789300939D19 /* Assets.xcassets */,
